@@ -1,0 +1,366 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react", "react-hooks", "import"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    // ==========================================
+    // TypeScript правила
+    // ==========================================
+    
+    // Запрещает использование типа 'any'
+    // Это заставляет разработчиков явно указывать типы
+    "@typescript-eslint/no-explicit-any": "error",
+
+    // Требует явного указания типа возвращаемого значения для функций
+    // Помогает сделать код более предсказуемым и документированным
+    "@typescript-eslint/explicit-function-return-type": "error",
+
+    // Запрещает неиспользуемые переменные
+    // Исключение: переменные, начинающиеся с '_'
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+
+    // Запрещает "плавающие" промисы (промисы без обработки)
+    // Предотвращает утечки памяти и необработанные ошибки
+    "@typescript-eslint/no-floating-promises": "error",
+
+    // Запрещает неправильное использование промисов в условиях
+    // Предотвращает логические ошибки при работе с асинхронным кодом
+    "@typescript-eslint/no-misused-promises": "error",
+
+    // Запрещает использование await с не-Promise значениями
+    // Предотвращает логические ошибки в асинхронном коде
+    "@typescript-eslint/await-thenable": "error",
+
+    // Запрещает небезопасные присваивания
+    // Требует явного приведения типов
+    "@typescript-eslint/no-unsafe-assignment": "error",
+
+    // Запрещает небезопасный доступ к свойствам
+    // Требует проверки существования свойств
+    "@typescript-eslint/no-unsafe-member-access": "error",
+
+    // Запрещает небезопасные вызовы функций
+    // Требует проверки типов вызываемых функций
+    "@typescript-eslint/no-unsafe-call": "error",
+
+    // Запрещает небезопасные возвращаемые значения
+    // Требует явного приведения типов
+    "@typescript-eslint/no-unsafe-return": "error",
+
+    // Требует использования type imports для типов
+    // Улучшает производительность и читаемость кода
+    "@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }],
+
+    // Требует использования type вместо interface
+    // Способствует единообразию кода
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+
+    // Запрещает использование оператора !
+    // Требует явной проверки на null/undefined
+    "@typescript-eslint/no-non-null-assertion": "error",
+
+    // Запрещает ненужные приведения типов
+    // Предотвращает избыточный код
+    "@typescript-eslint/no-unnecessary-type-assertion": "error",
+
+    // Требует использования ?? вместо ||
+    // Более точная проверка на null/undefined
+    "@typescript-eslint/prefer-nullish-coalescing": "error",
+
+    // Требует использования ?. вместо && для доступа к свойствам
+    // Более безопасный и читаемый код
+    "@typescript-eslint/prefer-optional-chain": "error",
+
+    // Требует обработки всех случаев в switch
+    // Предотвращает пропущенные case
+    "@typescript-eslint/switch-exhaustiveness-check": "error",
+
+    // ==========================================
+    // React правила
+    // ==========================================
+
+    // Отключает требование импорта React в JSX файлах
+    // Не нужно в Next.js 13+
+    "react/react-in-jsx-scope": "off",
+
+    // Отключает проверку prop-types
+    // Используем TypeScript для типизации пропсов
+    "react/prop-types": "off",
+
+    // Требует самозакрывающиеся теги для пустых элементов
+    // Улучшает читаемость JSX
+    "react/self-closing-comp": "error",
+
+    // Запрещает лишние фигурные скобки в JSX
+    // Улучшает читаемость
+    "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }],
+
+    // Запрещает явное указание true для булевых пропсов
+    // Упрощает код
+    "react/jsx-boolean-value": ["error", "never"],
+
+    // Требует PascalCase для компонентов
+    // Стандарт именования React компонентов
+    "react/jsx-pascal-case": "error",
+
+    // Запрещает пустые фрагменты
+    // Упрощает код
+    "react/jsx-no-useless-fragment": "error",
+
+    // Запрещает дублирование пропсов
+    // Предотвращает ошибки
+    "react/jsx-no-duplicate-props": "error",
+
+    // Запрещает неопределенные компоненты
+    // Предотвращает ошибки в JSX
+    "react/jsx-no-undef": "error",
+
+    // Требует rel="noopener noreferrer" для target="_blank"
+    // Безопасность при открытии внешних ссылок
+    "react/jsx-no-target-blank": "error",
+
+    // Запрещает javascript: URLs
+    // Безопасность
+    "react/jsx-no-script-url": "error",
+
+    // Запрещает создание функций в рендере
+    // Оптимизация производительности
+    "react/jsx-no-bind": ["error", { "allowArrowFunctions": true }],
+
+    // Требует key для элементов в массивах
+    // Оптимизация рендеринга
+    "react/jsx-key": "error",
+
+    // Требует осмысленных имен для обработчиков событий
+    // Улучшает читаемость
+    "react/jsx-handler-names": "error",
+
+    // Требует синтаксис фрагментов
+    // Улучшает читаемость
+    "react/jsx-fragments": ["error", "syntax"],
+
+    // Запрещает пробелы вокруг = в JSX
+    // Единообразие форматирования
+    "react/jsx-equals-spacing": ["error", "never"],
+
+    // Запрещает пробелы внутри фигурных скобок
+    // Единообразие форматирования
+    "react/jsx-curly-spacing": ["error", "never"],
+
+    // Требует правильное расположение закрывающих тегов
+    // Улучшает читаемость
+    "react/jsx-closing-tag-location": "error",
+
+    // Требует правильное расположение закрывающих скобок
+    // Улучшает читаемость
+    "react/jsx-closing-bracket-location": "error",
+
+    // Требует правильные отступы для дочерних элементов
+    // Улучшает читаемость
+    "react/jsx-child-element-spacing": "error",
+
+    // Требует перенос пропсов на новую строку при многострочном JSX
+    // Улучшает читаемость
+    "react/jsx-first-prop-new-line": ["error", "multiline"],
+
+    // Ограничивает количество пропсов на строку
+    // Улучшает читаемость
+    "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }],
+
+    // Требует один JSX элемент на строку
+    // Улучшает читаемость
+    "react/jsx-one-expression-per-line": ["error", { "allow": "single-child" }],
+
+    // Запрещает множественные пробелы в пропсах
+    // Единообразие форматирования
+    "react/jsx-props-no-multi-spaces": "error",
+
+    // Требует определенный порядок пропсов
+    // Улучшает читаемость
+    "react/jsx-sort-props": ["error", {
+      "callbacksLast": true,
+      "shorthandFirst": true,
+      "ignoreCase": true,
+      "reservedFirst": true
+    }],
+
+    // Требует правильные пробелы в JSX тегах
+    // Единообразие форматирования
+    "react/jsx-tag-spacing": ["error", {
+      "closingSlash": "never",
+      "beforeSelfClosing": "always",
+      "afterOpening": "never",
+      "beforeClosing": "never"
+    }],
+
+    // Требует правильные переносы строк в JSX
+    // Улучшает читаемость
+    "react/jsx-wrap-multilines": ["error", {
+      "declaration": "parens-new-line",
+      "assignment": "parens-new-line",
+      "return": "parens-new-line",
+      "arrow": "parens-new-line",
+      "condition": "parens-new-line",
+      "logical": "parens-new-line",
+      "prop": "parens-new-line"
+    }],
+
+    // ==========================================
+    // React Hooks правила
+    // ==========================================
+
+    // Запрещает нарушение правил хуков
+    // Предотвращает ошибки в работе хуков
+    "react-hooks/rules-of-hooks": "error",
+
+    // Требует указания всех зависимостей в useEffect
+    // Предотвращает ошибки в работе эффектов
+    "react-hooks/exhaustive-deps": "error",
+
+    // ==========================================
+    // Общие правила
+    // ==========================================
+
+    // Запрещает console.log, разрешает console.warn и console.error
+    // Предотвращает отладочный код в продакшене
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+
+    // Запрещает использование debugger
+    // Предотвращает отладочный код в продакшене
+    "no-debugger": "error",
+
+    // Запрещает дублирование импортов
+    // Улучшает производительность
+    "no-duplicate-imports": "error",
+
+    // Запрещает неиспользуемые выражения
+    // Предотвращает мертвый код
+    "no-unused-expressions": "error",
+
+    // Запрещает использование var
+    // Предпочитает const и let
+    "no-var": "error",
+
+    // Требует использование const где возможно
+    // Предотвращает случайные изменения
+    "prefer-const": "error",
+
+    // Требует использование стрелочных функций
+    // Улучшает читаемость и предотвращает проблемы с this
+    "prefer-arrow-callback": "error",
+
+    // Требует использование шаблонных строк
+    // Улучшает читаемость
+    "prefer-template": "error",
+
+    // Требует использование spread оператора
+    // Улучшает читаемость
+    "prefer-spread": "error",
+
+    // Требует использование rest параметров
+    // Улучшает читаемость
+    "prefer-rest-params": "error",
+
+    // Требует использование spread для объектов
+    // Улучшает читаемость
+    "prefer-object-spread": "error",
+
+    // Требует использование числовых литералов
+    // Улучшает читаемость
+    "prefer-numeric-literals": "error",
+
+    // Требует использование деструктуризации
+    // Улучшает читаемость
+    "prefer-destructuring": "error",
+
+    // ==========================================
+    // Правила импорта
+    // ==========================================
+
+    // Требует определенный порядок импортов
+    // Улучшает читаемость и поддерживаемость
+    "import/order": ["error", {
+      "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+      "newlines-between": "always",
+      "alphabetize": { "order": "asc", "caseInsensitive": true }
+    }],
+
+    // Запрещает дублирование импортов
+    // Улучшает производительность
+    "import/no-duplicates": "error",
+
+    // Запрещает неразрешенные импорты
+    // Предотвращает ошибки
+    "import/no-unresolved": "error",
+
+    // Запрещает циклические зависимости
+    // Предотвращает проблемы с инициализацией
+    "import/no-cycle": "error",
+
+    // Запрещает импорт самого себя
+    // Предотвращает ошибки
+    "import/no-self-import": "error",
+
+    // Запрещает лишние сегменты в путях
+    // Улучшает читаемость
+    "import/no-useless-path-segments": "error",
+
+    // Запрещает относительные импорты из родительских директорий
+    // Улучшает поддерживаемость
+    "import/no-relative-parent-imports": "error",
+
+    // Запрещает относительные импорты пакетов
+    // Улучшает поддерживаемость
+    "import/no-relative-packages": "error",
+
+    // Запрещает абсолютные пути в импортах
+    // Улучшает переносимость
+    "import/no-absolute-path": "error",
+
+    // Запрещает динамические require
+    // Улучшает статический анализ
+    "import/no-dynamic-require": "error",
+
+    // Запрещает webpack loader синтаксис
+    // Улучшает переносимость
+    "import/no-webpack-loader-syntax": "error",
+
+    // Запрещает неиспользуемые импорты
+    // Улучшает производительность
+    "import/no-unused-modules": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {},
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true
+  }
+} 
